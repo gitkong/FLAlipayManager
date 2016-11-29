@@ -12,7 +12,7 @@
 typedef void(^FLAlipayCallback)(NSDictionary *resultDic);
 @interface FLAlipayManager : NSObject
 /**
- *  @author 孔凡列, 16-09-21 08:09:06
+ *  @author 孔凡列
  *
  *  统一支付宝的回调，支付后可以实现回调
  */
@@ -20,16 +20,22 @@ typedef void(^FLAlipayCallback)(NSDictionary *resultDic);
 
 + (instancetype)shareManager;
 /**
- *  @author 孔凡列, 16-09-21 08:09:06
+ *  @author 孔凡列
  *
  *  支付宝授权支付-AppDelegate中实现
  */
 - (void)fl_alipayWithUrl:(NSURL *)url;
 /**
- *  @author 孔凡列, 16-09-21 08:09:06
+ *  @author 孔凡列
  *
  *  发起支付，任意地方
  */
 - (void)fl_alipayWithOrderStr:(NSString *)orderStr appScheme:(NSString *)appScheme;
+/**
+ *  @author 孔凡列
+ *
+ *  发起支付，带支付后回调
+ */
+- (void)fl_alipayWithOrderStr:(NSString *)orderStr appScheme:(NSString *)appScheme callBack:(FLAlipayCallback)callBack;
 
 @end

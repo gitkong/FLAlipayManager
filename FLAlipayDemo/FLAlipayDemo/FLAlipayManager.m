@@ -25,7 +25,9 @@
     NSAssert(url, @"url地址不能为空！");
     // 支付跳转支付宝钱包进行支付，处理支付结果
     [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-        [FLAlipayManager shareManager].fl_callback(resultDic);
+        if ([FLAlipayManager shareManager].fl_callback) {
+            [FLAlipayManager shareManager].fl_callback(resultDic);
+        }
     }];
     
     // 授权跳转支付宝钱包进行支付，处理支付结果
@@ -51,7 +53,15 @@
     NSAssert(orderStr, @"订单信息不能为空！");
     NSAssert(appScheme, @"scheme 不能为空并且要和info配置中一样！");
     [[AlipaySDK defaultService] payOrder:orderStr fromScheme:appScheme callback:^(NSDictionary *resultDic){
-        [FLAlipayManager shareManager].fl_callback(resultDic);
+        if ([FLAlipayManager shareManager].fl_callback) {
+            [FLAlipayManager shareManager].fl_callback(resultDic);
+        }
     }];
 }
+
+- (void)fl_alipayWithOrderStr:(NSString *)orderStr appScheme:(NSString *)appScheme callBack:(FLAlipayCallback)callBack{
+    self.fl_callback = callBack;
+    [self fl_alipayWithOrderStr:orderStr appScheme:appScheme];
+}
+
 @end
